@@ -71,3 +71,6 @@ Laravel BBS 是一个基于 Laravel 9.1.* 开发的论坛系统.
     - !!! npm uninstall file-loader schema-utils 卸载 file-loader schema-utils 依赖
     - !!! npm install file-loader@latest schema-utils@latest --save-dev 安装 file-loader schema-utils 依赖
     - !!! npm audit fix --force 强制修复 npm 安全漏洞
+    - php artisan ui:auth 安装 laravel/ui 用户认证
+    - rm app/Http/Controllers/HomeController.php 删除 HomeController 控制器
+    - rm resources/views/home.blade.php 删除 home 视图
