@@ -62,3 +62,8 @@ Laravel BBS 是一个基于 Laravel 9.1.* 开发的论坛系统.
     - composer dump-autoload 重新生成自动加载文件
     - php artisan make:controller PagesController 创建页面控制器
     - rm resources/views/welcome.blade.php 删除 Laravel 默认的欢迎页面
+    - composer require laravel/ui:3.4.5 --dev 安装 laravel/ui 包
+    - php artisan ui bootstrap 安装 bootstrap 前端框架
+    - npm install 安装 npm 依赖
+    - npm install resolve-url-loader@^5.0.0 --save-dev --legacy-peer-deps 安装 resolve-url-loader 依赖
+    - npm run watch-poll 监听资源文件变化
