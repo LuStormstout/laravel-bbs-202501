@@ -67,3 +67,7 @@ Laravel BBS 是一个基于 Laravel 9.1.* 开发的论坛系统.
     - npm install 安装 npm 依赖
     - npm install resolve-url-loader@^5.0.0 --save-dev --legacy-peer-deps 安装 resolve-url-loader 依赖
     - npm run watch-poll 监听资源文件变化
+    - yarn add @fortawesome/fontawesome-free 安装 fontawesome 图标库
+    - !!! npm uninstall file-loader schema-utils 卸载 file-loader schema-utils 依赖
+    - !!! npm install file-loader@latest schema-utils@latest --save-dev 安装 file-loader schema-utils 依赖
+    - !!! npm audit fix --force 强制修复 npm 安全漏洞
