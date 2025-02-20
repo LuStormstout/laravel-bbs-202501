@@ -58,4 +58,5 @@ Laravel BBS 是一个基于 Laravel 9.1.* 开发的论坛系统.
 - 2025-02-20
 
   - 今天运行的命令
-    - git init 初始化仓库
+    - touch app/helpers.php 在 app 目录下创建 helpers.php 文件, 用于存放自定义函数
+    - composer dump-autoload 重新生成自动加载文件
