@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\VerificationController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Mews\Captcha\Captcha;
@@ -17,7 +18,19 @@ use Mews\Captcha\Captcha;
 
 Route::get('/', 'PagesController@root')->name('root');
 
-Auth::routes();
+Auth::routes(['verify' => true]);
+
+// 手动注册邮箱验证相关路由
+Route::middleware(['auth'])->group(function () {
+    Route::get('/email/verify', [VerificationController::class, 'show'])
+        ->name('verification.notice');
+
+    Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])
+        ->middleware(['signed'])->name('verification.verify');
+
+    Route::post('/email/resend', [VerificationController::class, 'resend'])
+        ->name('verification.resend');
+});
 
 // 用户身份验证相关的路由
 // GET|HEAD   login ...................................... login › Auth\LoginController@showLoginForm

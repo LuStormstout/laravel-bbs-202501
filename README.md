@@ -82,3 +82,16 @@ Laravel BBS 是一个基于 Laravel 9.1.* 开发的论坛系统.
     - composer require "mews/captcha:~3.0" 安装验证码包
     - php artisan vendor:publish --provider='Mews\Captcha\CaptchaServiceProvider' 发布验证码配置文件
     - !!! composer require intervention/image 安装图片处理包
+    - MacOS: brew install mailhog 安装 mailhog
+    - MacOS: brew services start mailhog 启动 mailhog
+    - Windows: scoop install mailhog 安装 mailhog
+    - Windows: mailhog 启动 mailhog
+    - .env 配置邮件发送
+        - MAIL_MAILER=smtp
+        - MAIL_HOST=127.0.0.1
+        - MAIL_PORT=1025
+        - MAIL_USERNAME=null
+        - MAIL_PASSWORD=null
+        - MAIL_ENCRYPTION=null
+        - MAIL_FROM_ADDRESS="hello@example.com"
+        - MAIL_FROM_NAME="${APP_NAME}"
