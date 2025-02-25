@@ -12,11 +12,11 @@
                      src="https://cdn.learnku.com/uploads/images/201709/20/1/PtDKbASVcz.png?imageView2/1/w/600/h/600"
                      alt="{{ $user->name }}">
                 <div class="card-body">
-                    <h5><strong>个人简介</strong></h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
+                    <h5><strong>Introduction</strong></h5>
+                    <p>{{ $user->introduction }}</p>
                     <hr>
-                    <h5><strong>注册于</strong></h5>
-                    <p>January 01 1901</p>
+                    <h5><strong>Joined on</strong></h5>
+                    <p>{{ $user->created_at->diffForHumans() }}</p>
                 </div>
             </div>
         </div>
@@ -31,7 +31,7 @@
             {{-- 用户发布的内容 --}}
             <div class="card ">
                 <div class="card-body">
-                    暂无数据 ~_~
+                    No content available.
                 </div>
             </div>
 
