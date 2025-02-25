@@ -26,9 +26,8 @@
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                            data-bs-toggle="dropdown"
                            aria-haspopup="true" aria-expanded="false">
-                            <img
-                                    src="https://laravel.com/img/logomark.min.svg"
-                                    class="img-responsive img-circle" width="30px" height="30px" alt="Gravatar">
+                            <img src="{{ Auth::user()->avatar }}" class="img-responsive img-circle" width="30px"
+                                 height="30px" alt="Gravatar">
                             {{ Auth::user()->name }}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
