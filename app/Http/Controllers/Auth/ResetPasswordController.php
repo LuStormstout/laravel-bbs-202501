@@ -4,7 +4,11 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 
 class ResetPasswordController extends Controller
 {
@@ -26,5 +30,27 @@ class ResetPasswordController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected string $redirectTo = RouteServiceProvider::HOME;
+
+    /**
+     * Controller constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('guest');
+    }
+
+    /**
+     * Redeclare the method redirect to view by the session message after the password reset.
+     * Redeclare ResetsPasswords trait method sendResetResponse.
+     *
+     * @param Request $request
+     * @param $response
+     * @return Redirector|Application|RedirectResponse
+     */
+    protected function sendResetResponse(Request $request, $response): Redirector|Application|RedirectResponse
+    {
+        session()->flash('success', 'Password reset successful.');
+        return redirect($this->redirectPath());
+    }
 }
