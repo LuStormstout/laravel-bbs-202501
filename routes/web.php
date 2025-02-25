@@ -52,3 +52,8 @@ Route::middleware(['auth'])->group(function () {
 
 // 邮箱验证相关的路由
 // POST       password/email ...... password.email › Auth\ForgotPasswordController@sendResetLinkEmail
+
+Route::resource('users', 'UsersController', ['only' => ['show', 'update', 'edit']]);
+// GET|HEAD        users/{user} ............. users.show › UsersController@show
+// GET|HEAD        users/{user}/edit ........ users.edit › UsersController@edit
+// PUT|PATCH       users/{user} ......... users.update › UsersController@update
