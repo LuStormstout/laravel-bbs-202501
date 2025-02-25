@@ -20,6 +20,7 @@ class UserRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      * regex:/^[A-Za-z0-9\-\_]+$/ 这是一个正则表达式，用于限制用户名只包含 A-Z、a-z、0-9、- 和 _
+     * dimensions:min_width=208,min_height=208 限制上传的图片文件宽和高的最小值, 单位是像素
      *
      * @return array<string, mixed>
      */
@@ -29,6 +30,7 @@ class UserRequest extends FormRequest
             'name' => 'required|between:3,25|regex:/^[A-Za-z0-9\-\_]+$/|unique:users,name,' . Auth::id(),
             'email' => 'required|email',
             'introduction' => 'max:80',
+            'avatar' => 'mimes:jpeg,jpg,png,gif|dimensions:min_width=208,min_height=208',
         ];
     }
 
@@ -43,6 +45,11 @@ class UserRequest extends FormRequest
     {
         return [
             'name.unique' => 'The username has already been taken, please choose another one.',
+            'name.regex' => 'The username can only contain letters, numbers, dashes and underscores.',
+            'name.between' => 'The username must be between 3 and 25 characters.',
+            'name.required' => 'The username is required.',
+            'avatar.mimes' => 'The avatar must be a file of type: jpeg, jpg, png, gif.',
+            'avatar.dimensions' => 'The avatar must be at least 208px in width and 208px in height.',
         ];
     }
 }
