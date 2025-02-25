@@ -95,3 +95,11 @@ Laravel BBS 是一个基于 Laravel 9.1.* 开发的论坛系统.
         - MAIL_ENCRYPTION=null
         - MAIL_FROM_ADDRESS="hello@example.com"
         - MAIL_FROM_NAME="${APP_NAME}"
+
+### 2.25
+
+- 今天运行的命令
+    - php artisan event:generate 生成事件类, 用于监听用户验证邮件成功事件, 我们是先在
+      app/Providers/EventServiceProvider.php 中注册事件监听器, 然后在使用该命令自动生成事件类.
+    - ⚠️ 需要注意的是如果你的代码书写正确且你的命令成功执行, 但还是在 IDE 里面看不到自动创建的文件夹或者文件的话,
+      去文件夹中确认是否生成成功.
