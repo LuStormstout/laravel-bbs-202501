@@ -106,3 +106,4 @@ Laravel BBS 是一个基于 Laravel 9.1.* 开发的论坛系统.
     - php artisan make:controller UsersController 创建用户控制器
     - php artisan make:migration add_avatar_and_introduction_to_users_table --table=users 给用户表添加头像和简介字段
     - php artisan migrate 执行数据迁移
+    - php artisan make:request UserRequest 创建用户请求类
