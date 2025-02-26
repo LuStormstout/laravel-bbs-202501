@@ -113,3 +113,4 @@ Laravel BBS 是一个基于 Laravel 9.1.* 开发的论坛系统.
 - 今天运行的命令
     - composer require intervention/image-laravel 安装图片处理包
     - php artisan vendor:publish --provider="Intervention\Image\Laravel\ServiceProvider" 发布图片处理配置文件
+    - php artisan make:policy UserPolicy 创建用户策略
