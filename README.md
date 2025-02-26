@@ -118,3 +118,4 @@ Laravel BBS 是一个基于 Laravel 9.1.* 开发的论坛系统.
     - php artisan migrate 执行数据迁移
     - php artisan make:migration seed_categories_data 创建分类数据迁移文件
     - php artisan migrate 执行数据迁移
+    - composer require "summerblue/generator:9.*" --dev 安装代码生成器
