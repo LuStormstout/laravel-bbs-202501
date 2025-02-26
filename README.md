@@ -119,3 +119,19 @@ Laravel BBS 是一个基于 Laravel 9.1.* 开发的论坛系统.
     - php artisan make:migration seed_categories_data 创建分类数据迁移文件
     - php artisan migrate 执行数据迁移
     - composer require "summerblue/generator:9.*" --dev 安装代码生成器
+    - 我们来分析一下我们的话题/帖子的数据结构
+        - 话题/帖子
+            - title 字符串(String) 标题
+            - body 文本(text) 内容
+            - category_id 整数(int) 分类
+            - user_id 整数(int) 用户
+            - reply_count 整数(int) 回复数
+            - view_count 整数(int) 查看数
+            - last_reply_user_id 整数(int) 最后回复用户
+            - order 整数(int) 排序
+            - excerpt 文本(text) 摘要
+            - slug 字符串(String) SEO 友好的 URL
+    - php artisan make:scaffold Topic --schema="title:string:index,body:text,user_id:bigInteger:unsigned:
+      index,category_id:integer:unsigned:index,reply_count:integer:unsigned:default(0),view_count:integer:unsigned:
+      default(0),last_reply_user_id:integer:unsigned:default(0),order:integer:unsigned:default(0),excerpt:text:
+      nullable,slug:string:nullable" 使用代码生成器生成 Topic 模型相关的代码
