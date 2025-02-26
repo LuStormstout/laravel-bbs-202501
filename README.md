@@ -114,3 +114,7 @@ Laravel BBS 是一个基于 Laravel 9.1.* 开发的论坛系统.
     - composer require intervention/image-laravel 安装图片处理包
     - php artisan vendor:publish --provider="Intervention\Image\Laravel\ServiceProvider" 发布图片处理配置文件
     - php artisan make:policy UserPolicy 创建用户策略
+    - php artisan make:model Category -m 创建分类模型并且数据迁移文件
+    - php artisan migrate 执行数据迁移
+    - php artisan make:migration seed_categories_data 创建分类数据迁移文件
+    - php artisan migrate 执行数据迁移
