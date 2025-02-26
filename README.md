@@ -107,3 +107,9 @@ Laravel BBS 是一个基于 Laravel 9.1.* 开发的论坛系统.
     - php artisan make:migration add_avatar_and_introduction_to_users_table --table=users 给用户表添加头像和简介字段
     - php artisan migrate 执行数据迁移
     - php artisan make:request UserRequest 创建用户请求类
+
+### 2.26
+
+- 今天运行的命令
+    - composer require intervention/image-laravel 安装图片处理包
+    - php artisan vendor:publish --provider="Intervention\Image\Laravel\ServiceProvider" 发布图片处理配置文件
