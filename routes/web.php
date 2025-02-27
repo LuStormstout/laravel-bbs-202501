@@ -69,3 +69,6 @@ Route::resource('topics', 'TopicsController', ['only' => ['index', 'show', 'crea
 // GET|HEAD        users/{user} ..................................... users.show › UsersController@show
 // PUT|PATCH       users/{user} ................................. users.update › UsersController@update
 // GET|HEAD        users/{user}/edit ................................ users.edit › UsersController@edit
+
+Route::resource('categories', 'CategoriesController', ['only' => ['show']]);
+// GET|HEAD        categories/{category} .................. categories.show › CategoriesController@show

@@ -145,3 +145,4 @@ Laravel BBS 是一个基于 Laravel 9.1.* 开发的论坛系统.
     - php artisan vendor:publish --provider="Barryvdh\Debugbar\ServiceProvider" 发布调试工具配置文件
     - 需要注意的是这个调试工具是在开发环境下使用的, 所以我们需要在 .env 文件中配置 APP_DEBUG=true
     - 如果是生产环境下, 需要关闭调试工具, 需要在 .env 文件中配置 APP_DEBUG=false
+    - composer require "summerblue/laravel-active:9.*" 安装处理页面上的标签的 active 类的包
