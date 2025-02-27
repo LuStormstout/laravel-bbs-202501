@@ -14,20 +14,20 @@ return new class extends Migration {
     {
         $categories = [
             [
-                'name' => '分享',
-                'description' => '分享发现',
+                'name' => 'Shared',
+                'description' => 'Found something cool? Share it!',
             ],
             [
-                'name' => '教程',
-                'description' => '开发技巧',
+                'name' => 'Tutorial',
+                'description' => 'Learn and explore new skills.',
             ],
             [
-                'name' => '问答',
-                'description' => '请保持友善, 互帮互助',
+                'name' => 'Q&A',
+                'description' => 'Stay friendly, help each other, and share knowledge!',
             ],
             [
-                'name' => '公告',
-                'description' => '站点公告',
+                'name' => 'Announcement',
+                'description' => 'Official site updates and important news.',
             ],
         ];
 
