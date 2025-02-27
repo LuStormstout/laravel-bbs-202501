@@ -141,3 +141,7 @@ Laravel BBS 是一个基于 Laravel 9.1.* 开发的论坛系统.
 - 今天运行的命令
     - php artisan make:seed UsersTableSeeder 创建用户数据填充类
     - php artisan migrate:refresh --seed 刷新数据库并且填充数据
+    - composer require "barryvdh/laravel-debugbar:~3.6" --dev 安装调试工具
+    - php artisan vendor:publish --provider="Barryvdh\Debugbar\ServiceProvider" 发布调试工具配置文件
+    - 需要注意的是这个调试工具是在开发环境下使用的, 所以我们需要在 .env 文件中配置 APP_DEBUG=true
+    - 如果是生产环境下, 需要关闭调试工具, 需要在 .env 文件中配置 APP_DEBUG=false
