@@ -135,3 +135,9 @@ Laravel BBS 是一个基于 Laravel 9.1.* 开发的论坛系统.
       index,category_id:integer:unsigned:index,reply_count:integer:unsigned:default(0),view_count:integer:unsigned:
       default(0),last_reply_user_id:integer:unsigned:default(0),order:integer:unsigned:default(0),excerpt:text:
       nullable,slug:string:nullable" 使用代码生成器生成 Topic 模型相关的代码
+
+## 2025-02-27
+
+- 今天运行的命令
+    - php artisan make:seed UsersTableSeeder 创建用户数据填充类
+    - php artisan migrate:refresh --seed 刷新数据库并且填充数据
