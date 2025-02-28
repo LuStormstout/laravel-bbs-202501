@@ -5,6 +5,24 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * Class Topic
+ * @package App\Models
+ *
+ * @property int id
+ * @property string title
+ * @property string body
+ * @property int category_id
+ * @property string excerpt
+ * @property string slug
+ * @property int user_id
+ * @property int reply_count
+ * @property int view_count
+ * @property int last_reply_user_id
+ * @property int order
+ * @property Category category
+ * @property User user
+ */
 class Topic extends Model
 {
     use HasFactory;
@@ -14,7 +32,7 @@ class Topic extends Model
      *
      * @var string[]
      */
-    protected $fillable = ['title', 'body', 'user_id', 'category_id', 'reply_count', 'view_count', 'last_reply_user_id', 'order', 'excerpt', 'slug'];
+    protected $fillable = ['title', 'body', 'category_id', 'excerpt', 'slug'];
 
     /**
      * Define Topic belongs to Category
