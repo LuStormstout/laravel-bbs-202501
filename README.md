@@ -146,3 +146,15 @@ Laravel BBS 是一个基于 Laravel 9.1.* 开发的论坛系统.
     - 需要注意的是这个调试工具是在开发环境下使用的, 所以我们需要在 .env 文件中配置 APP_DEBUG=true
     - 如果是生产环境下, 需要关闭调试工具, 需要在 .env 文件中配置 APP_DEBUG=false
     - composer require "summerblue/laravel-active:9.*" 安装处理页面上的标签的 active 类的包
+
+### 2025-02-28
+
+- 下载 Simditor 富文本编辑器
+    - [Simditor](https://simditor.tower.im/) 是一个简单的富文本编辑器, 适用于 PC 和移动端, 这个网站中也有详细的使用文档
+    - [Simditor GitHub](https://github.com/mycolorway/simditor/releases) 下载最新版本
+    - mkdir -p resources/editor/css 创建编辑器的 CSS 文件夹
+    - mkdir -p resources/editor/js 创建编辑器的 JS 文件夹
+    - 我们将对应的我们需要的 CSS 和 JS 文件放到对应的文件夹中, 然后我们是通过 mix 来编译这些文件的, 所以我们需要在
+      webpack.mix.js 中配置, 配置完成后我们需要重新运行 npm run watch-poll 来监听资源文件的变化
+    - yarn add jquery 安装 jQuery, 安装完成我们需要在 resources/js/bootstrap.js 中引入 jQuery
+    - 安装完成之后运行 npm run watch-poll 来监听资源文件的变化
