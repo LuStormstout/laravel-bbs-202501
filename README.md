@@ -158,3 +158,9 @@ Laravel BBS 是一个基于 Laravel 9.1.* 开发的论坛系统.
       webpack.mix.js 中配置, 配置完成后我们需要重新运行 npm run watch-poll 来监听资源文件的变化
     - yarn add jquery 安装 jQuery, 安装完成我们需要在 resources/js/bootstrap.js 中引入 jQuery
     - 安装完成之后运行 npm run watch-poll 来监听资源文件的变化
+
+### 2025-03-03
+
+- 今天运行的命令
+  - composer require "mews/purifier:~3.3" 安装 HTML 过滤器 
+  - php artisan vendor:publish --provider="Mews\Purifier\PurifierServiceProvider" 发布 HTML 过滤器配置文件
