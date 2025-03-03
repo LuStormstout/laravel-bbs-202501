@@ -72,3 +72,5 @@ Route::resource('topics', 'TopicsController', ['only' => ['index', 'show', 'crea
 
 Route::resource('categories', 'CategoriesController', ['only' => ['show']]);
 // GET|HEAD        categories/{category} .................. categories.show › CategoriesController@show
+
+Route::post('upload_image', 'TopicsController@uploadImage')->name('topics.upload_image');
