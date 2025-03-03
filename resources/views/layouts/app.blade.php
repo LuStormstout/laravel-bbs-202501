@@ -10,7 +10,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>@yield('title')</title>
-    <meta name="description" content="@yield('description', 'Lu Stormstout\'s bbs')">">
+    <meta name="description" content="@yield('description', 'Lu Stormstout\'s bbs')">
 
     <!-- Styles -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
