@@ -16,11 +16,18 @@ class TopicPolicy extends Policy
      */
     public function update(User $user, Topic $topic): bool
     {
-         return $topic->user_id == $user->id;
+        return $user->isAuthorOf($topic);
     }
 
-    public function destroy(User $user, Topic $topic)
+    /**
+     * Determine whether the user can delete the topic.
+     *
+     * @param User $user
+     * @param Topic $topic
+     * @return bool
+     */
+    public function destroy(User $user, Topic $topic): bool
     {
-        return true;
+        return $user->isAuthorOf($topic);
     }
 }

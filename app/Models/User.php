@@ -66,4 +66,15 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Topic::class);
     }
+
+    /**
+     * Check if the user is the author of the model.
+     *
+     * @param object $model
+     * @return bool
+     */
+    public function isAuthorOf(object $model): bool
+    {
+        return $this->id == $model->user_id;
+    }
 }
