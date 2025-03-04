@@ -162,6 +162,17 @@ Laravel BBS 是一个基于 Laravel 9.1.* 开发的论坛系统.
 ### 2025-03-03
 
 - 今天运行的命令
-  - composer require "mews/purifier:~3.3" 安装 HTML 过滤器 
-  - php artisan vendor:publish --provider="Mews\Purifier\PurifierServiceProvider" 发布 HTML 过滤器配置文件
-  - fetch("http://127.0.0.1:8000/topics", {"headers":{"content-type":"application/x-www-form-urlencoded","upgrade-insecure-requests":"1"},"body":"_token=yK3i4FGilnfRAh8xoQVRwWSWU3onUYI7Ruu6AuVF&title=dangerous%20content+&category_id=2&body=%3Cscript%3Ealert%28%27%E5%AD%98%E5%9C%A8%20XSS%20%E5%AE%89%E5%85%A8%E5%A8%81%E8%83%81%EF%BC%81%27%29%3C%2Fscript%3E","method":"POST","mode":"cors"}); 这个是可以通过浏览器的 console 中通过 xss 攻击给数据库中注入脚本, 在我们安装了扩展并且对入库时的 $topic->body 进行了过滤之后, 我们再次尝试这个攻击, 发现已经无法注入脚本了
+    - composer require "mews/purifier:~3.3" 安装 HTML 过滤器
+    - php artisan vendor:publish --provider="Mews\Purifier\PurifierServiceProvider" 发布 HTML 过滤器配置文件
+    - fetch("http://127.0.0.1:8000/topics", {"headers":{"content-type":"application/x-www-form-urlencoded","
+      upgrade-insecure-requests":"1"},"body":"_
+      token=yK3i4FGilnfRAh8xoQVRwWSWU3onUYI7Ruu6AuVF&title=dangerous%20content+&category_id=2&body=%3Cscript%3Ealert%28%27%E5%AD%98%E5%9C%A8%20XSS%20%E5%AE%89%E5%85%A8%E5%A8%81%E8%83%81%EF%BC%81%27%29%3C%2Fscript%3E","
+      method":"POST","mode":"cors"}); 这个是可以通过浏览器的 console 中通过 xss 攻击给数据库中注入脚本, 在我们安装了扩展并且对入库时的
+      $topic->body 进行了过滤之后, 我们再次尝试这个攻击, 发现已经无法注入脚本了
+
+### 2025-03-04
+
+- 今天运行的命令
+    - php artisan make:scaffold Reply --schema="topic_id:integer:unsigned:default(0):index,user_id:bigInteger:unsigned:
+      default(0):index,content:text" 使用代码生成器生成回复模型相关的代码
+    - php artisan migrate:refresh --seed 刷新数据库并且填充数据 

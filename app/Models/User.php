@@ -68,6 +68,16 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * User has many replies.
+     *
+     * @return HasMany
+     */
+    public function replies(): HasMany
+    {
+        return $this->hasMany(Reply::class);
+    }
+
+    /**
      * Check if the user is the author of the model.
      *
      * @param object $model
