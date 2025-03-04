@@ -20,4 +20,16 @@ class TopicObserver
         $topic->body = clean($topic->body, 'user_topic_body');
         $topic->excerpt = make_excerpt($topic->body);
     }
+
+    /**
+     * When creating the topic, generate the slug.
+     *
+     * @param Topic $topic
+     * @return void
+     */
+    public function created(Topic $topic): void
+    {
+        $topic->slug = env('APP_URL') . '/topics/' . $topic->id;
+        $topic->save();
+    }
 }

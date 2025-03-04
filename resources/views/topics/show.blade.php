@@ -2,6 +2,7 @@
 
 @section('title', $topic->title)
 @section('description', $topic->excerpt)
+@section('slug', $topic->slug)
 
 @section('content')
 
@@ -51,7 +52,8 @@
                             <i class="far fa-edit"></i> Edit
                         </a>
                         <form action="{{ route('topics.destroy', $topic->id) }}" method="post"
-                              style="display: inline-block" onsubmit="return confirm('Are you sure you want to delete this post?')">
+                              style="display: inline-block"
+                              onsubmit="return confirm('Are you sure you want to delete this post?')">
                             {{ csrf_field() }}
                             {{ method_field('DELETE') }}
                             <button type="submit" class="btn btn-outline-secondary btn-sm">
