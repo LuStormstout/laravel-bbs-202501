@@ -20,6 +20,7 @@ use Illuminate\Auth\MustVerifyEmail as MustVerifyEmailTrait;
  * @property string $password
  * @property string $avatar
  * @property string $introduction
+ * @property Reply replies
  */
 class User extends Authenticatable implements MustVerifyEmail
 {

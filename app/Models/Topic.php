@@ -23,6 +23,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int order
  * @property Category category
  * @property User user
+ * @property Reply replies
  */
 class Topic extends Model
 {

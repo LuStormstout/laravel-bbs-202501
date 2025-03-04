@@ -5,6 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * Class Reply
+ * @package App\Models
+ *
+ * @property int id
+ * @property string content
+ * @property int topic_id
+ * @property int user_id
+ * @property Topic topic
+ * @property User user
+ */
 class Reply extends Model
 {
     use HasFactory;
@@ -34,5 +45,16 @@ class Reply extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Scope function to get the recent replies.
+     *
+     * @param $query
+     * @return mixed
+     */
+    public function scopeRecent($query): mixed
+    {
+        return $query->orderBy('created_at', 'desc');
     }
 }
