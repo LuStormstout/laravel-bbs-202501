@@ -16,8 +16,10 @@ use Mews\Captcha\Captcha;
 |
 */
 
+// 首页
 Route::get('/', 'PagesController@root')->name('root');
 
+// 邮箱验证相关路由
 Auth::routes(['verify' => true]);
 
 // 手动注册邮箱验证相关路由
@@ -53,11 +55,13 @@ Route::middleware(['auth'])->group(function () {
 // 邮箱验证相关的路由
 // POST       password/email ...... password.email › Auth\ForgotPasswordController@sendResetLinkEmail
 
+// 用户个人中心相关的路由
 Route::resource('users', 'UsersController', ['only' => ['show', 'update', 'edit']]);
 // GET|HEAD        users/{user} ............. users.show › UsersController@show
 // GET|HEAD        users/{user}/edit ........ users.edit › UsersController@edit
 // PUT|PATCH       users/{user} ......... users.update › UsersController@update
 
+// 话题相关的路由
 Route::resource('topics', 'TopicsController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
 // GET|HEAD        topics ....................................... topics.index › TopicsController@index
 // POST            topics ....................................... topics.store › TopicsController@store
@@ -70,9 +74,15 @@ Route::resource('topics', 'TopicsController', ['only' => ['index', 'show', 'crea
 // PUT|PATCH       users/{user} ................................. users.update › UsersController@update
 // GET|HEAD        users/{user}/edit ................................ users.edit › UsersController@edit
 
+// 分类相关的路由
 Route::resource('categories', 'CategoriesController', ['only' => ['show']]);
 // GET|HEAD        categories/{category} .................. categories.show › CategoriesController@show
 
+// 话题上传图片
 Route::post('upload_image', 'TopicsController@uploadImage')->name('topics.upload_image');
 
+// 话题回复相关的路由
 Route::resource('replies', 'RepliesController', ['only' => ['store', 'destroy']]);
+
+// 通知相关的路由
+Route::resource('notifications', 'NotificationsController', ['only' => ['index']]);
