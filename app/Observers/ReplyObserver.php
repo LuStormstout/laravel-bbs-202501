@@ -3,6 +3,8 @@
 namespace App\Observers;
 
 use App\Models\Reply;
+use App\Models\User;
+use App\Notifications\TopicReplied;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
@@ -21,6 +23,10 @@ class ReplyObserver
     {
         $reply->topic->reply_count = $reply->topic->replies->count();
         $reply->topic->save();
+
+        // Notify the author of the topic if the reply is not from the author.
+        // 给「回复(replies)」的「话题(topics)」的「作者(users)」发送通知
+        $reply->topic->user->notify(new TopicReplied($reply));
     }
 
     /**

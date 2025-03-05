@@ -175,4 +175,12 @@ Laravel BBS 是一个基于 Laravel 9.1.* 开发的论坛系统.
 - 今天运行的命令
     - php artisan make:scaffold Reply --schema="topic_id:integer:unsigned:default(0):index,user_id:bigInteger:unsigned:
       default(0):index,content:text" 使用代码生成器生成回复模型相关的代码
-    - php artisan migrate:refresh --seed 刷新数据库并且填充数据 
+    - php artisan migrate:refresh --seed 刷新数据库并且填充数据
+
+### 2025-03-05
+
+- 命令
+    - php artisan notifications:table 创建通知数据表
+    - php artisan migrate 执行数据迁移
+    - php artisan make:migration add_notification_count_to_users_table --table=users 给用户表添加通知字段
+    - php artisan migrate 执行数据迁移
