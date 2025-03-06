@@ -184,3 +184,13 @@ Laravel BBS 是一个基于 Laravel 9.1.* 开发的论坛系统.
     - php artisan migrate 执行数据迁移
     - php artisan make:migration add_notification_count_to_users_table --table=users 给用户表添加通知字段
     - php artisan migrate 执行数据迁移
+
+### 2025-03-06
+
+ - composer require "predis/predis:~1.1" 安装 Predis
+ - QUEUE_CONNECTION=redis 配置队列
+ - REDIS_CLIENT=predis 配置 Redis
+ - composer require "laravel/horizon:~5.9" 安装 Laravel Horizon 队列监控工具
+ - php artisan vendor:publish --provider="Laravel\Horizon\HorizonServiceProvider" 发布 Laravel Horizon 配置文件
+ - php artisan horizon 启动 Laravel Horizon
+ - php artisan queue:listen 也可以在命令行中监听队列
