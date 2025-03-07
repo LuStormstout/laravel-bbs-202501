@@ -187,15 +187,33 @@ Laravel BBS 是一个基于 Laravel 9.1.* 开发的论坛系统.
 
 ### 2025-03-06
 
- - composer require "predis/predis:~1.1" 安装 Predis
- - QUEUE_CONNECTION=redis 配置队列
- - REDIS_CLIENT=predis 配置 Redis
- - composer require "laravel/horizon:~5.9" 安装 Laravel Horizon 队列监控工具
- - php artisan vendor:publish --provider="Laravel\Horizon\HorizonServiceProvider" 发布 Laravel Horizon 配置文件
- - php artisan horizon 启动 Laravel Horizon
- - php artisan queue:listen 也可以在命令行中监听队列
+- composer require "predis/predis:~1.1" 安装 Predis
+- QUEUE_CONNECTION=redis 配置队列
+- REDIS_CLIENT=predis 配置 Redis
+- composer require "laravel/horizon:~5.9" 安装 Laravel Horizon 队列监控工具
+- php artisan vendor:publish --provider="Laravel\Horizon\HorizonServiceProvider" 发布 Laravel Horizon 配置文件
+- php artisan horizon 启动 Laravel Horizon
+- php artisan queue:listen 也可以在命令行中监听队列
 
 ### 2025-03-07
 
 - php artisan make:migration rename_content_column_in_replies_table --table=replies 重命名回复表中的 content 字段
 - php artisan migrate 执行数据迁移
+
+#### 作业
+
+- 在我们现有的回复基础上, 增加可以评论回复的功能, 也就是回复的回复, 也就是楼中楼的功能
+- 回复的评论只需要嵌套一层即可, 不需要无限嵌套
+- 我们允许回复的评论的作者可以删除自己的评论, 回复的作者可以删除自己回复下面的评论, 当前话题的作者可以删除回复的评论
+- 这个功能也只有发布和删除的功能
+- 在现有的 replies 表中增加 parent_id 字段, 用于存储回复的评论的父级 ID, 这条评论的 topic_id 为 0
+- 我们不在对应的 topic 里面统计回复的评论数 reply_count, 但是我们要在对应的回复下面显示回复的评论数
+- 显示在页面上应该是这样的
+```
+id = 1 这个是原来的回复
+    这个是回复的评论1 id = 自动增长的ID, parent_id = 1, topic_id = 0, user_id = 当前发布评论的用户 ID
+    这个是回复的评论2
+    这个是回复的评论3
+```
+
+

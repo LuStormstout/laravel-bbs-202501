@@ -18,17 +18,23 @@
                     <span class="meta text-secondary"
                           title="{{ $reply->created_at }}">{{ $reply->created_at->diffForHumans() }}</span>
 
+                    {{-- 评论回复的按钮 --}}
+                    {{-- 这里是简单的示例代码, 大家可以使用也可以不使用. --}}
+                    {{-- <span class="meta float-end text-secondary mt-2"> --}}
+                    {{--     <a href="#"><i class="fa-regular fa-comment"></i></a> --}}
+                    {{-- </span> --}}
+
                     {{-- 回复删除按钮 --}}
                     @can('destroy', $reply)
                         <span class="meta float-end ">
-                        <form action="{{ route('replies.destroy', $reply->id) }}" method="post"
-                              onsubmit="return confirm('Are you sure you want to delete this reply?')">
-                            {{ csrf_field() }}
-                            {{ method_field('DELETE') }}
-                            <button type="submit" class="btn btn-default btn-xs pull-left text-secondary"><i
-                                    class="far fa-trash-alt"></i></button>
-                        </form>
-                    </span>
+                            <form action="{{ route('replies.destroy', $reply->id) }}" method="post"
+                                  onsubmit="return confirm('Are you sure you want to delete this reply?')">
+                                {{ csrf_field() }}
+                                {{ method_field('DELETE') }}
+                                <button type="submit" class="btn btn-default btn-xs pull-left text-secondary"><i
+                                        class="far fa-trash-alt"></i></button>
+                            </form>
+                        </span>
                     @endcan
                 </div>
                 <div class="reply-content text-secondary">
