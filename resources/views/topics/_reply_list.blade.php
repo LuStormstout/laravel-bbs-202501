@@ -1,6 +1,6 @@
 <ul class="list-unstyled">
     @foreach ($replies as $index => $reply)
-        <li class=" d-flex" name="reply{{ $reply->id }}" id="reply{{ $reply->id }}">
+        <li class="d-flex" name="reply{{ $reply->id }}" id="reply{{ $reply->id }}">
             <div class="media-left">
                 <a href="{{ route('users.show', [$reply->user_id]) }}">
                     <img class="media-object img-thumbnail mr-3" alt="{{ $reply->user->name }}"
@@ -18,27 +18,66 @@
                     <span class="meta text-secondary"
                           title="{{ $reply->created_at }}">{{ $reply->created_at->diffForHumans() }}</span>
 
-                    {{-- 评论回复的按钮 --}}
-                    {{-- 这里是简单的示例代码, 大家可以使用也可以不使用. --}}
-                    {{-- <span class="meta float-end text-secondary mt-2"> --}}
-                    {{--     <a href="#"><i class="fa-regular fa-comment"></i></a> --}}
-                    {{-- </span> --}}
+                    {{-- 回复按钮 --}}
+                    <button class="btn btn-sm btn-link text-secondary" data-bs-toggle="collapse"
+                            data-bs-target="#replyForm{{ $reply->id }}">
+                        <i class="fa-regular fa-comment"></i> Reply
+                    </button>
 
-                    {{-- 回复删除按钮 --}}
+                    {{-- 显示子评论数量，点击展开 --}}
+                    <span class="meta float-end">
+                        <button class="btn btn-sm text-secondary" data-bs-toggle="collapse"
+                                data-bs-target="#nestedReplies{{ $reply->id }}">
+                            <i class="fa-solid fa-comments"></i> 3 replies
+                        </button>
+                    </span>
+
+                    {{-- 删除按钮 --}}
                     @can('destroy', $reply)
-                        <span class="meta float-end ">
+                        <span class="meta float-end">
                             <form action="{{ route('replies.destroy', $reply->id) }}" method="post"
                                   onsubmit="return confirm('Are you sure you want to delete this reply?')">
                                 {{ csrf_field() }}
                                 {{ method_field('DELETE') }}
-                                <button type="submit" class="btn btn-default btn-xs pull-left text-secondary"><i
-                                        class="far fa-trash-alt"></i></button>
+                                <button type="submit" class="btn btn-default btn-xs pull-left text-secondary">
+                                    <i class="far fa-trash-alt"></i>
+                                </button>
                             </form>
                         </span>
                     @endcan
                 </div>
+
+                {{-- 显示回复内容 --}}
                 <div class="reply-content text-secondary">
                     {!! $reply->message !!}
+                </div>
+
+                {{-- 回复输入框，默认折叠 --}}
+                <div class="collapse mt-2" id="replyForm{{ $reply->id }}">
+                        <label for="message"></label>
+                        <textarea class="form-control" name="message"  id="message" rows="2" placeholder="Reply to this comment..."></textarea>
+                    <button type="submit" class="btn btn-sm btn-secondary mt-2">Submit</button>
+                </div>
+
+                {{-- 子评论 Mock 数据展示 --}}
+                <div class="collapse mt-3 ms-4 border-start ps-3" id="nestedReplies{{ $reply->id }}">
+                    <div class="mb-2">
+                        <p><strong>MockUser1</strong> - 5 minutes ago</p>
+                        <p>This is a mock nested reply.</p>
+                    </div>
+                    <div class="mb-2">
+                        <p><strong>MockUser2</strong> - 10 minutes ago</p>
+                        <p>Another mock reply to demonstrate nesting.</p>
+                    </div>
+                    <div class="mb-2">
+                        <p><strong>MockUser3</strong> - 15 minutes ago</p>
+                        <p>Yet another mock reply.</p>
+                    </div>
+
+                    {{-- “加载更多” 功能，后续替换为后端 AJAX 加载 --}}
+                    <button class="btn btn-sm btn-outline-secondary" onclick="showMoreReplies({{ $reply->id }})">
+                        Load more
+                    </button>
                 </div>
             </div>
         </li>
@@ -46,6 +85,12 @@
         @if (!$loop->last)
             <hr>
         @endif
-
     @endforeach
 </ul>
+
+<script>
+    function showMoreReplies(replyId) {
+        // TODO: 替换成后端 AJAX 加载更多子评论的逻辑
+        alert('Showing more replies for reply ID: ' + replyId);
+    }
+</script>
