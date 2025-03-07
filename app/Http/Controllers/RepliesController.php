@@ -29,7 +29,7 @@ class RepliesController extends Controller
         $reply->topic_id = $request->topic_id;
         $reply->save();
 
-        return redirect()->to($reply->topic->slug)->with('success', 'Reply created successfully.');
+        return redirect()->to($reply->topic->slug . '#reply' . $reply->id)->with('success', 'Reply created successfully.');
     }
 
     /**
@@ -44,6 +44,6 @@ class RepliesController extends Controller
         $this->authorize('destroy', $reply);
         $reply->delete();
 
-        return redirect()->route('replies.index')->with('message', 'Deleted successfully.');
+        return redirect()->to($reply->topic->slug)->with('success', 'Deleted successfully.');
     }
 }

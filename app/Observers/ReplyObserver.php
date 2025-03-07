@@ -21,12 +21,13 @@ class ReplyObserver
      */
     public function created(Reply $reply): void
     {
-        $reply->topic->reply_count = $reply->topic->replies->count();
-        $reply->topic->save();
+        $reply->topic->updateReplyCount();
 
         // Notify the author of the topic if the reply is not from the author.
         // 给「回复(replies)」的「话题(topics)」的「作者(users)」发送通知
-        $reply->topic->user->notify(new TopicReplied($reply));
+        if ($reply->user_id !== $reply->topic->user_id) {
+            $reply->topic->user->notify(new TopicReplied($reply));
+        }
     }
 
     /**
@@ -49,5 +50,16 @@ class ReplyObserver
         if ($validator->fails()) {
             throw new ValidationException($validator);
         }
+    }
+
+    /**
+     * When the reply is deleted, update the reply count of the topic.
+     *
+     * @param Reply $reply
+     * @return void
+     */
+    public function deleted(Reply $reply): void
+    {
+        $reply->topic->updateReplyCount();
     }
 }
