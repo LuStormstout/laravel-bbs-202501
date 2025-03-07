@@ -39,12 +39,12 @@ class ReplyObserver
      */
     public function creating(Reply $reply): void
     {
-        $reply->content = clean($reply->content, 'user_topic_body');
+        $reply->message = clean($reply->message, 'user_topic_body');
 
         // 在这里我们重新去验证回复的内容, 因为可能遇到 xss 攻击的问题我们过滤完了之后内容为空
         // <script>alert('This is dangerous!!!!')</script>
         $validator = Validator::make($reply->toArray(), [
-            'content' => 'required|min:2',
+            'message' => 'required|min:2',
         ]);
 
         if ($validator->fails()) {

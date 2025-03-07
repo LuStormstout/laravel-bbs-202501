@@ -194,3 +194,8 @@ Laravel BBS 是一个基于 Laravel 9.1.* 开发的论坛系统.
  - php artisan vendor:publish --provider="Laravel\Horizon\HorizonServiceProvider" 发布 Laravel Horizon 配置文件
  - php artisan horizon 启动 Laravel Horizon
  - php artisan queue:listen 也可以在命令行中监听队列
+
+### 2025-03-07
+
+- php artisan make:migration rename_content_column_in_replies_table --table=replies 重命名回复表中的 content 字段
+- php artisan migrate 执行数据迁移

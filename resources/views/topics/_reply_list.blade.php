@@ -32,7 +32,7 @@
                     @endcan
                 </div>
                 <div class="reply-content text-secondary">
-                    {!! $reply->content !!}
+                    {!! $reply->message !!}
                 </div>
             </div>
         </li>
