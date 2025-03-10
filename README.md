@@ -230,6 +230,8 @@ id = 1 这个是原来的回复
 - php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider" 发布权限管理配置文件
 - php artisan make:migration seed_roles_and_permissions_data 创建角色和权限数据填充类
 - php artisan migrate:refresh --seed 刷新数据库并且填充数据
+- composer require lab404/laravel-impersonate 安装 impersonate 包, 用于模拟登录
+- php artisan vendor:publish 发布 impersonate 配置文件, 选择 Lab404\Impersonate\ImpersonateServiceProvider 后面的数字
 
 - 用户(使用这个网站的所有人) users
 - 角色(就是我们对我们网站中的用户进行归纳总结) roles 角色表, 用于存储角色信息
