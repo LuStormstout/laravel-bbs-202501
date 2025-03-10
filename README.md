@@ -209,11 +209,64 @@ Laravel BBS 是一个基于 Laravel 9.1.* 开发的论坛系统.
 - 在现有的 replies 表中增加 parent_id 字段, 用于存储回复的评论的父级 ID, 这条评论的 topic_id 为 0
 - 我们不在对应的 topic 里面统计回复的评论数 reply_count, 但是我们要在对应的回复下面显示回复的评论数
 - 显示在页面上应该是这样的
+
 ```
 id = 1 这个是原来的回复
     这个是回复的评论1 id = 自动增长的ID, parent_id = 1, topic_id = 0, user_id = 当前发布评论的用户 ID
     这个是回复的评论2
     这个是回复的评论3
+```
+
+### 2025-03-10
+
+#### 基于角色的权限控制
+
+- 游客 -> 没有登录的用户, 可以随便浏览不需要登录的页面, 但是不能发布内容
+- 用户 -> 登录的用户, 可以发布内容, 只能管理自己的内容, 不能管理别人的内容
+- 管理员 -> 有管理权限的用户, 社区内容的管理者, 可以管理话题, 可以管理评论, 可以管理分类
+- 站长 -> 超级管理员, 网站的所有者, 可以管理管理员, 可以管理用户, 可以管理话题, 可以管理评论, 可以管理分类
+
+- composer require 'spatie/laravel-permission:~5.5' 安装权限管理包
+- php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider" 发布权限管理配置文件
+- php artisan make:migration seed_roles_and_permissions_data 创建角色和权限数据填充类
+- php artisan migrate:refresh --seed 刷新数据库并且填充数据
+
+- 用户(使用这个网站的所有人) users
+- 角色(就是我们对我们网站中的用户进行归纳总结) roles 角色表, 用于存储角色信息
+- 权限(针对于我们网站里面的每一个操作, 都可以定义一个权限) permissions 权限表, 用于存储权限信息
+    - 用户可以有多个角色 model_has_roles 表, 用于存储用户和角色的关系
+    - 角色可以有多个权限 role_has_permissions 表, 用于存储角色和权限的关系
+    - 用户可以有多个权限 model_has_permissions 表, 用于存储用户和权限的关系
+
+```PHP
+use Spatie\Permission\Models\Role;
+
+$adminRole = Role::create(['name' => 'admin']);
+$writerRole = Role::create(['name' => 'writer']); // 创建一个角色
+\Spatie\Permission\Models\Permission::create(['name' => 'edit_articles']); // 创建一个权限
+$writerRole->givePermissionTo('edit_articles'); // 给角色赋予权限
+
+$user = \App\Models\User::find(1);
+$user->assignRole('writer'); // 单个角色
+
+// 多个角色
+$user->assignRole(['writer', 'admin']);
+$user->assignRole('writer', 'admin');
+
+// 检查用户是否有某个角色
+$user->hasRole('writer'); // bool
+$user->hasAnyRole(Role::all()); // bool
+$user->hasAllRoles(Role::all()); // bool
+
+// 检查角色是否有某个权限
+$writerRole->hasPermissionTo('edit_articles'); // bool
+// 检查用户是否有某个权限
+$user->can('edit_articles'); // bool
+
+// 给用户添加权限
+$user->givePermissionTo('edit_articles');
+// 获取所有直接权限, 不是用过角色赋予的权限, 而是直接赋予的权限 model_has_permissions 表
+$user->getDirectPermissions();
 ```
 
 
