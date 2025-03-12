@@ -35,3 +35,14 @@ function make_excerpt(string $value, int $length = 200): mixed
     $excerpt = trim(preg_replace('/\r\n|\r|\n+/', ' ', strip_tags($value)));
     return str()->limit($excerpt, $length);
 }
+
+/**
+ * Check if the current reply's child is collapsed.
+ *
+ * @return bool
+ * @param int $reply_id
+ */
+function collapse(int $reply_id): bool
+{
+    return request()->query('reply_id') == $reply_id && request()->query('child');
+}

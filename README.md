@@ -271,4 +271,23 @@ $user->givePermissionTo('edit_articles');
 $user->getDirectPermissions();
 ```
 
+### 2025-03-12
+
+- php artisan make:migration add_parent_id_to_replies_table --table=replies 给回复表添加 parent_id 字段
+- php artisan migrate 执行数据迁移
+
+#### 梳理一下子评论功能的开发流程
+1. 在 replies 表中添加 parent_id 字段, 用于存储回复的评论的父级 ID
+2. 在 Reply 模型中添加 child 方法, 用于获取子评论
+3. 在 Topic 模型中修改 replies 方法, 用于所有 parent_id 为 0 的回复
+4. 在 [RepliesController.php](app%2FHttp%2FControllers%2FRepliesController.php) 中修改 store 方法, 用于存储回复的评论,
+在存储子评论成功后因为会触发 [ReplyObserver.php](app%2FObservers%2FReplyObserver.php) 中的 created 方法,
+因为我们要把所有的子评论也算做当前 topic 的回复数量, 所以我们修改了 [Topic.php](app%2FModels%2FTopic.php) 的计算回复数量的方法
+5. 修改 [_reply_list.blade.php](resources%2Fviews%2Ftopics%2F_reply_list.blade.php), 用于显示回复的评论,
+我们在这个中间做了一些页面上的交互优化, 在我们回复完子评论后返回到
+topic 详情页面的时候默认展开当前回复的这个评论的子评论, 在这里我们为了实现这个功能, 我们在成功保存了子评论之后返回到
+topic 详情页面的时候携带了一些参数用来判断是否展开子评论, 我们在 [helpers.php](app%2Fhelpers.php) 中添加了一个函数来判断是否展开子评论
+6. 删除子评论, 我们在删除评论的时候需要去判断当前评论是否存在子评论, 如果存在子评论的话我们不允许删除父级评论 (
+当然这个你可以按照你自己的想法去修改, 可以在删除了父级评论之后把当前回复的子回复全部删除)
+
 

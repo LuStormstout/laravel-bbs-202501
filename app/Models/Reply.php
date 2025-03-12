@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class Reply
@@ -12,9 +13,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int id
  * @property string message
  * @property int topic_id
+ * @property int parent_id
  * @property int user_id
  * @property Topic topic
  * @property User user
+ * @property Reply child
  */
 class Reply extends Model
 {
@@ -45,6 +48,16 @@ class Reply extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * A reply can have many children.
+     *
+     * @return HasMany
+     */
+    public function child(): HasMany
+    {
+        return $this->hasMany(Reply::class, 'parent_id');
     }
 
     /**
