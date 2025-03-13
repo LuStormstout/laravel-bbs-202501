@@ -295,5 +295,7 @@ topic 详情页面的时候携带了一些参数用来判断是否展开子评�
 
 - composer require "summerblue/administrator:9.*" 安装后台管理工具
 - php artisan vendor:publish --provider="Frozennode\Administrator\AdministratorServiceProvider" 发布后台管理工具配置文件
+- macOS: command + F 查找, command + R 查找替换
+- windows: ctrl + F 查找, ctrl + R 查找替换
 
 
