@@ -290,4 +290,10 @@ topic 详情页面的时候携带了一些参数用来判断是否展开子评�
 6. 删除子评论, 我们在删除评论的时候需要去判断当前评论是否存在子评论, 如果存在子评论的话我们不允许删除父级评论 (
 当然这个你可以按照你自己的想法去修改, 可以在删除了父级评论之后把当前回复的子回复全部删除)
 
+   
+### 2025-03-13
+
+- composer require "summerblue/administrator:9.*" 安装后台管理工具
+- php artisan vendor:publish --provider="Frozennode\Administrator\AdministratorServiceProvider" 发布后台管理工具配置文件
+
 
