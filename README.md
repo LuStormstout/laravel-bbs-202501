@@ -298,4 +298,10 @@ topic 详情页面的时候携带了一些参数用来判断是否展开子评�
 - macOS: command + F 查找, command + R 查找替换
 - windows: ctrl + F 查找, ctrl + R 查找替换
 
+1. 安装了 summerblue/administrator 后台管理工具
+2. 我们的这个后台管理扩展使用的时候最关键的是要理解它的配置文件, 我们在 [administrator.php](config%2Fadministrator.php) 中配置了我们的后台管理工具, 在里面的 menu 配置了我们的菜单
+3. 对应的 menu 配置中的子项都要在对应的 [administrator](config%2Fadministrator) 中配置, 比如我们的用户管理, 我们在 menu 中配置了用户管理, 那么我们就要在 users 中配置用户管理的相关信息
+4. 我们在 [topics.php](config%2Fadministrator%2Ftopics.php) 中使用了两个方法是定义在 [helpers.php](app%2Fhelpers.php) 中的
+5. 我们使用的这个扩展只是众多基于 Laravel 的后台管理工具之一, 你可以根据自己的需求去选择适合自己的后台管理工具, ex: https://filamentphp.com/
+
 
