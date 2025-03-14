@@ -10,7 +10,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>@yield('title')</title>
-    <meta name="description" content="@yield('description', 'Lu Stormstout\'s bbs')">
+    <meta name="description" content="@yield('description', 'Lu Stormstout\'s bbs'), {{ setting('seo_description') }}">
+    <meta name="keyword" content="@yield('keyword', setting('seo_keyword')), Lu Stormstout, bbs">
     <meta name="slug" content="@yield('slug', env('APP_URL'))">
 
     <!-- Styles -->
