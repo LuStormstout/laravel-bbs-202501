@@ -316,4 +316,12 @@ topic 详情页面的时候携带了一些参数用来判断是否展开子评�
 6. 使用 summerblue/administrator 来构建后台管理系统, 实现了用户管理、话题管理、评论管理、分类管理等功能;
 7. 使用了 Eloquent 修改器来加密用户密码和修改头像;
 
+#### 侧边栏活跃用户
+- 我们先思考一个问题, 什么样的用户是活跃用户? 最近 7 天所有用户的帖子数和评论数比较多的用户
+- 因为我们叫做活跃用户, 所以我们应该实时计算, 每一个小时计算一次
+- 我们按照得分来排序, 例如发一个帖子得 4 分, 发一个评论得 1 分, 那么我们可以按照得分来排序
+- 因为我们需要使用 Redis 来存储这个活跃用户, 所以我们需要在 .env 文件中配置 CACHE_DRIVER=redis
+- php artisan make:command CalculateActiveUser --command=bbs:calculate-active-user 创建一个计算活跃用户的命令
+- 我们可以通过 php artisan bbs:calculate-active-user 来手动计算活跃用户
+
 
