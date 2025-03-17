@@ -277,20 +277,20 @@ $user->getDirectPermissions();
 - php artisan migrate 执行数据迁移
 
 #### 梳理一下子评论功能的开发流程
+
 1. 在 replies 表中添加 parent_id 字段, 用于存储回复的评论的父级 ID
 2. 在 Reply 模型中添加 child 方法, 用于获取子评论
 3. 在 Topic 模型中修改 replies 方法, 用于所有 parent_id 为 0 的回复
 4. 在 [RepliesController.php](app%2FHttp%2FControllers%2FRepliesController.php) 中修改 store 方法, 用于存储回复的评论,
-在存储子评论成功后因为会触发 [ReplyObserver.php](app%2FObservers%2FReplyObserver.php) 中的 created 方法,
-因为我们要把所有的子评论也算做当前 topic 的回复数量, 所以我们修改了 [Topic.php](app%2FModels%2FTopic.php) 的计算回复数量的方法
+   在存储子评论成功后因为会触发 [ReplyObserver.php](app%2FObservers%2FReplyObserver.php) 中的 created 方法,
+   因为我们要把所有的子评论也算做当前 topic 的回复数量, 所以我们修改了 [Topic.php](app%2FModels%2FTopic.php) 的计算回复数量的方法
 5. 修改 [_reply_list.blade.php](resources%2Fviews%2Ftopics%2F_reply_list.blade.php), 用于显示回复的评论,
-我们在这个中间做了一些页面上的交互优化, 在我们回复完子评论后返回到
-topic 详情页面的时候默认展开当前回复的这个评论的子评论, 在这里我们为了实现这个功能, 我们在成功保存了子评论之后返回到
-topic 详情页面的时候携带了一些参数用来判断是否展开子评论, 我们在 [helpers.php](app%2Fhelpers.php) 中添加了一个函数来判断是否展开子评论
+   我们在这个中间做了一些页面上的交互优化, 在我们回复完子评论后返回到
+   topic 详情页面的时候默认展开当前回复的这个评论的子评论, 在这里我们为了实现这个功能, 我们在成功保存了子评论之后返回到
+   topic 详情页面的时候携带了一些参数用来判断是否展开子评论, 我们在 [helpers.php](app%2Fhelpers.php) 中添加了一个函数来判断是否展开子评论
 6. 删除子评论, 我们在删除评论的时候需要去判断当前评论是否存在子评论, 如果存在子评论的话我们不允许删除父级评论 (
-当然这个你可以按照你自己的想法去修改, 可以在删除了父级评论之后把当前回复的子回复全部删除)
+   当然这个你可以按照你自己的想法去修改, 可以在删除了父级评论之后把当前回复的子回复全部删除)
 
-   
 ### 2025-03-13
 
 - composer require "summerblue/administrator:9.*" 安装后台管理工具
@@ -299,15 +299,18 @@ topic 详情页面的时候携带了一些参数用来判断是否展开子评�
 - windows: ctrl + F 查找, ctrl + R 查找替换
 
 1. 安装了 summerblue/administrator 后台管理工具
-2. 我们的这个后台管理扩展使用的时候最关键的是要理解它的配置文件, 我们在 [administrator.php](config%2Fadministrator.php) 中配置了我们的后台管理工具, 在里面的 menu 配置了我们的菜单
-3. 对应的 menu 配置中的子项都要在对应的 [administrator](config%2Fadministrator) 中配置, 比如我们的用户管理, 我们在 menu 中配置了用户管理, 那么我们就要在 users 中配置用户管理的相关信息
+2. 我们的这个后台管理扩展使用的时候最关键的是要理解它的配置文件, 我们在 [administrator.php](config%2Fadministrator.php)
+   中配置了我们的后台管理工具, 在里面的 menu 配置了我们的菜单
+3. 对应的 menu 配置中的子项都要在对应的 [administrator](config%2Fadministrator) 中配置, 比如我们的用户管理, 我们在 menu
+   中配置了用户管理, 那么我们就要在 users 中配置用户管理的相关信息
 4. 我们在 [topics.php](config%2Fadministrator%2Ftopics.php) 中使用了两个方法是定义在 [helpers.php](app%2Fhelpers.php) 中的
-5. 我们使用的这个扩展只是众多基于 Laravel 的后台管理工具之一, 你可以根据自己的需求去选择适合自己的后台管理工具, ex: https://filamentphp.com/
-
+5. 我们使用的这个扩展只是众多基于 Laravel 的后台管理工具之一, 你可以根据自己的需求去选择适合自己的后台管理工具,
+   ex: https://filamentphp.com/
 
 ### 2025-03-14
 
 #### 梳理管理后台的开发
+
 1. 多角色用户权限的概念;
 2. 使用 spatie/laravel-permission 来构建一套多用户权限管理系统;
 3. 使用授权类的过滤器来全局授权用户;
@@ -317,13 +320,13 @@ topic 详情页面的时候携带了一些参数用来判断是否展开子评�
 7. 使用了 Eloquent 修改器来加密用户密码和修改头像;
 
 #### 侧边栏活跃用户
+
 - 我们先思考一个问题, 什么样的用户是活跃用户? 最近 7 天所有用户的帖子数和评论数比较多的用户
 - 因为我们叫做活跃用户, 所以我们应该实时计算, 每一个小时计算一次
 - 我们按照得分来排序, 例如发一个帖子得 4 分, 发一个评论得 1 分, 那么我们可以按照得分来排序
 - 因为我们需要使用 Redis 来存储这个活跃用户, 所以我们需要在 .env 文件中配置 CACHE_DRIVER=redis
 - php artisan make:command CalculateActiveUser --command=bbs:calculate-active-user 创建一个计算活跃用户的命令
 - 我们可以通过 php artisan bbs:calculate-active-user 来手动计算活跃用户
-
 
 ### 2025-03-17
 
@@ -336,3 +339,38 @@ topic 详情页面的时候携带了一些参数用来判断是否展开子评�
 - php artisan migrate:refresh --seed 刷新数据库并且填充数据
 - php artisan make:migration add_references 创建一个添加外键的迁移文件
 - php artisan migrate 执行数据迁移
+
+#### 今天的做的事情
+
+1. 修复了上周五遗留的一个问题, 就是按照分类查找的时候我们需要同时返回首页上面需要的活跃用户数据
+2. 我们创建了定时任务来计算活跃用户, 每小时计算一次, 并且我们可以手动执行这个命令, 这个用到了 Linux 的定时任务 Crontab,
+   大家需要自己去了解尝试一下
+3. 创建了友情链接模型, 并且创建了友情链接工厂和友情链接数据填充类, 我们找了一些真实存在的网站来填充我们的友情链接,
+   当然你们可以按照自己的需求来填充
+4. 配置可以在管理后台来管理友情链接
+5. 在首页上显示友情链接, 并且需要注意在按照分类显示 topic 的时候我们需要把友情链接也返回到页面上
+6. 在 Link 模型中添加了用来查找和缓存友情链接的方法, 用于在首页上显示友情链接
+7. 我们还在 LinkObserver 中添加了一个监听器, 用于在友情链接发生变化的时候清除缓存
+8. 处理了当用户被删除的时候, 他的所有的话题和评论都被删除的问题, 我们使用的方法是数据库的外键约束, 在用户被删除的时候,
+   他的所有的话题和评论都会被删除
+
+#### 作业
+
+- 将我们的这个项目的前台页面改造成 api 接口, 用于提供给移动端使用, 或者是自己用 vue/react/angular 等前端框架以前后端分离的方式来开发
+- 大家去学习一下什么是跨域资源共享 (CORS), 以及如何解决跨域问题
+
+#### 推荐的学习资料:
+- https://learnku.com/courses/laravel-shop/8.x Laravel 电商实战教程
+- https://learnku.com/courses/ecommerce-advance/8.x Laravel 电商进阶教程
+
+#### 自己去了解一些加密方式以及认证协议
+- RSA 加密
+- JWT 认证协议
+- OAuth 认证协议
+- SSO 单点登录
+- 了解一下什么是 CSRF 攻击, 以及如何防范
+- 了解一下什么是 XSS 攻击, 以及如何防范
+- 了解一下什么是 SQL 注入, 以及如何防范
+- 了解一下什么是 DDOS 攻击, 以及如何防范
+- Bearer Token 认证 https://oauth.net/2/bearer-tokens/
+
