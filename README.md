@@ -325,3 +325,7 @@ topic 详情页面的时候携带了一些参数用来判断是否展开子评�
 - 我们可以通过 php artisan bbs:calculate-active-user 来手动计算活跃用户
 
 
+### 2025-03-17
+
+- ```* * * * * cd /Library/WebServer/Documents/cod/laravel-project-202501/laravel-bbs-202501 && php artisan schedule:run >> /dev/null 2>&1```
+- /Library/WebServer/Documents/cod/laravel-project-202501/laravel-bbs-202501 请注意这个要切换成自己的项目路径
