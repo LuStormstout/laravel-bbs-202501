@@ -329,3 +329,8 @@ topic 详情页面的时候携带了一些参数用来判断是否展开子评�
 
 - ```* * * * * cd /Library/WebServer/Documents/cod/laravel-project-202501/laravel-bbs-202501 && php artisan schedule:run >> /dev/null 2>&1```
 - /Library/WebServer/Documents/cod/laravel-project-202501/laravel-bbs-202501 请注意这个要切换成自己的项目路径
+- php artisan make:model Link -m 创建友情链接模型和数据迁移文件
+- php artisan migrate 执行数据迁移
+- php artisan make:factory LinkFactory 创建友情链接工厂
+- php artisan make:seeder LinksTableSeeder 创建友情链接数据填充类
+- php artisan migrate:refresh --seed 刷新数据库并且填充数据
