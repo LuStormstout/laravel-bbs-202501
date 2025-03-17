@@ -335,3 +335,4 @@ topic 详情页面的时候携带了一些参数用来判断是否展开子评�
 - php artisan make:seeder LinksTableSeeder 创建友情链接数据填充类
 - php artisan migrate:refresh --seed 刷新数据库并且填充数据
 - php artisan make:migration add_references 创建一个添加外键的迁移文件
+- php artisan migrate 执行数据迁移
