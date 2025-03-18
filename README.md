@@ -360,10 +360,12 @@ $user->getDirectPermissions();
 - 大家去学习一下什么是跨域资源共享 (CORS), 以及如何解决跨域问题
 
 #### 推荐的学习资料:
+
 - https://learnku.com/courses/laravel-shop/8.x Laravel 电商实战教程
 - https://learnku.com/courses/ecommerce-advance/8.x Laravel 电商进阶教程
 
 #### 自己去了解一些加密方式以及认证协议
+
 - RSA 加密
 - JWT 认证协议
 - OAuth 认证协议
@@ -381,3 +383,102 @@ $user->getDirectPermissions();
 - php artisan migrate 执行数据迁移
 - php artisan bbs:sync-user-active-at 同步 Redis 中昨天的「用户最后活跃时间」数据到数据库中
 
+#### 将我们的项目部署到 AWS 云服务器
+
+- 按照 AWS 的免费试用一年去创建好你自己的 EC2 云服务器, 然后按照下面的步骤去部署你的项目
+- 试用 ssh 连接到你的云服务器, 然后按照下面的步骤去部署你的项目
+    - chmod 400 your-key.pem 你的密钥文件, 需要注意的是你的文件路径要对
+    - ssh -i your-key.pem ubuntu@your-public-ip 你的公网 IP, 你可以在 AWS 控制台中找到
+- apt-get 这个是 ubuntu 系统的包管理工具, 你可以使用这个工具来安装一些软件包, 但是在现在的 ubuntu 系统中, apt-get 和 apt
+  是等价的
+- sudo -i 这个是切换到 root 用户, 你可以在 root 用户下面执行一些需要 root 权限的命令
+- 安装 Nginx、PHP、MySQL、Composer、Node.js、Redis
+    - sudo apt update 更新软件包
+    - sudo apt install nginx 安装 Nginx
+    - sudo systemctl status nginx 查看 Nginx 状态
+    - sudo systemctl start nginx 启动 Nginx
+    - sudo systemctl enable nginx 设置 Nginx 开机自启动
+    - sudo ufw allow 'Nginx HTTP' 允许 HTTP 端口
+    - sudo ufw allow 'Nginx HTTPS' 允许 HTTPS 端口
+    - sudo ufw status 查看防火墙状态
+    - sudo apt install php-fpm php-mysql 安装 PHP
+    - sudo apt install mysql-server 安装 MySQL
+    - sudo mysql_secure_installation 设置 MySQL 密码, 需要读懂提示, 按照提示设置, 这里的允许远程登录请打开方便我们测试,
+      但是生产环境下不建议
+    - sudo apt install composer 安装 Composer
+    - sudo apt install nodejs 安装 Node.js
+    - sudo apt install npm 安装 npm
+    - sudo apt install redis-server 安装 Redis
+    - sudo systemctl status redis 查看 Redis 状态
+    - sudo systemctl start redis 启动 Redis
+    - sudo systemctl enable redis 设置 Redis 开机自启动
+    - sudo apt install zip 安装 zip
+    - sudo apt install unzip 安装 unzip
+    - sudo apt install git 安装 git
+
+- cd /var/www 进入这个目录, 我们的 web 项目一般都放在这个目录下
+- git clone 「你自己的 GitHub 项目地址」 克隆我们的项目
+- cd 你的项目目录 进入你的项目目录
+- cp .env.example .env 复制一份 .env 文件
+- vim .env 编辑 .env 文件, 修改数据库配置, 邮件配置, Redis 配置等
+    - 进入编辑模式, 按 i 键, 在编辑完成后按 ESC 键, 输入 :wq 或者 shift + zz 保存并退出, 输入 :q! 不保存退出
+    - APP_NAME="Lu Stormstout'BBS"
+    - APP_URL=http://你自己的公网 IP
+    - DB_DATABASE=laravel-bbs-202501
+    - CACHE_DRIVER=redis
+    - DB_PASSWORD=你的 MySQL 密码
+- composer install 安装 PHP 依赖
+- 如果提示缺少这两个扩展的话 ext-gd * ext-dom * 安装 PHP 扩展
+    - sudo apt install php-gd 安装 PHP GD 扩展
+    - sudo apt install php-dom 安装 PHP DOM 扩展
+    - sudo apt install -y php-redis 安装 PHP Redis 扩展
+- npm install 安装 npm 依赖
+- php artisan key:generate 生成 APP_KEY
+- 使用 mysql -uroot 进入 MySQL, 创建数据库
+    - ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '这里改成你自己的密码'; 修改 MySQL root
+      用户密码
+    - FLUSH PRIVILEGES; 刷新权限
+    - sudo systemctl restart mysql 重启 MySQL
+    - CREATE DATABASE `laravel-bbs-202501` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci; 创建数据库
+- php artisan migrate 执行数据迁移
+    - cd /etc/nginx/sites-available 这个目录下面存放的是 Nginx 的配置文件
+        - vim 你自己的文件名.conf 编辑你的配置文件, 你可以参考下面的配置文件
+        ```nginx 
+        server {
+            listen 80;
+            server_name 这个地方填写你的公网 IP;
+  
+              root /var/www/laravel-bbs-202501/public; # 这个地方填写你的项目目录
+              index index.php index.html index.htm;
+      
+              location / {
+                  try_files $uri $uri/ /index.php?$query_string;
+              }
+      
+              location ~ \.php$ {
+                  include fastcgi_params;
+                  fastcgi_pass unix:/run/php/php-fpm.sock;  # 适用于 Ubuntu/Debian
+                  # fastcgi_pass 127.0.0.1:9000;  # 适用于部分 CentOS/RHEL
+                  fastcgi_index index.php;
+                  fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+              }
+      
+              location ~ /\.ht {
+                  deny all;
+              }
+        }
+        ```
+- 保存并退出, 然后执行 sudo ln -s /etc/nginx/sites-available/你的文件名.conf /etc/nginx/sites-enabled/ 使配置文件生效
+- sudo nginx -t 检查 Nginx 配置文件是否正确
+- sudo systemctl restart nginx 重启 Nginx
+
+- cd /var/www
+- sudo chown -R www-data:www-data laravel-bbs-202501/ 修改项目目录的权限
+
+- sudo systemctl restart php8.3-fpm.service 重启 PHP
+- sudo systemctl restart nginx 重启 Nginx
+- sudo systemctl restart mysql 重启 MySQL
+
+- 如果你要使用 https 的话, 可以使用 https://certbot.eff.org/instructions?ws=nginx&os=snap 生成免费的 SSL 证书, 但是需要你的域名
+- 注册域名大家可以自己去找一些域名商, 找一个便宜点儿的就可以了, 推荐去 GoDaddy 等国外的运营商, 不推荐阿里云、腾讯云、华为云等中国大陆的云服务商,
+  因为需要实名备案, 很麻烦的
