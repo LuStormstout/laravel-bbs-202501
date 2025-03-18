@@ -3,12 +3,16 @@
 namespace App\Models;
 
 use App\Models\Traits\ActiveUserHelper;
+use App\Models\Traits\LastActiveHelper;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Str;
 use Lab404\Impersonate\Models\Impersonate;
 use Laravel\Sanctum\HasApiTokens;
@@ -28,10 +32,14 @@ use Spatie\Permission\Traits\HasRoles;
  * @property Reply replies
  * @property Topic topics
  * @property int notification_count
+ * @property Carbon email_verified_at
+ * @property Carbon last_active_at
+ * @property Carbon created_at
+ * @property Carbon updated_at
  */
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, MustVerifyEmailTrait, HasRoles, Impersonate, ActiveUserHelper;
+    use HasApiTokens, HasFactory, MustVerifyEmailTrait, HasRoles, Impersonate, ActiveUserHelper, LastActiveHelper;
 
     use Notifiable {
         notify as protected laravelNotify;

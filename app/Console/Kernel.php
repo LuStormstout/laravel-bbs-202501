@@ -17,6 +17,9 @@ class Kernel extends ConsoleKernel
     {
         // 一小时执行一次「活跃用户」数据生成的命令
         $schedule->command('bbs:calculate-active-user')->hourly();
+
+        // 每天凌晨 00:00 执行一次「同步用户最后活跃时间」的命令
+        $schedule->command('bbs:sync-user-active-at')->dailyAt('00:00');
     }
 
     /**

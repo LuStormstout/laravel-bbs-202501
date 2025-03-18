@@ -374,3 +374,10 @@ $user->getDirectPermissions();
 - 了解一下什么是 DDOS 攻击, 以及如何防范
 - Bearer Token 认证 https://oauth.net/2/bearer-tokens/
 
+### 2025-03-18
+
+- php artisan make:middleware RecordLastActiveTime 创建一个记录用户最后活跃时间的中间件
+- php artisan make:migration add_last_active_at_to_users_table --table=users 给用户表添加最后活跃时间字段
+- php artisan migrate 执行数据迁移
+- php artisan bbs:sync-user-active-at 同步 Redis 中昨天的「用户最后活跃时间」数据到数据库中
+

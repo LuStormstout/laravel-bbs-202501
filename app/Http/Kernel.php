@@ -40,6 +40,9 @@ class Kernel extends HttpKernel
 
             // 来限制用户必须去验证邮箱
             EnsureEmailIsVerified::class,
+
+            // 记录用户最后活跃时间
+            \App\Http\Middleware\RecordLastActiveTime::class,
         ],
 
         'api' => [

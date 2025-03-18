@@ -17,6 +17,9 @@
                     <hr>
                     <h5><strong>Joined on</strong></h5>
                     <p>{{ $user->created_at->diffForHumans() }}</p>
+                    <hr>
+                    <h5><strong>Recent activities</strong></h5>
+                    <p title="{{ $user->last_active_at }}">{{ $user->last_active_at->diffForHumans() }}</p>
                 </div>
             </div>
         </div>
