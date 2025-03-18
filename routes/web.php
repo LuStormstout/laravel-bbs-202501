@@ -1,10 +1,10 @@
 <?php
 
 use App\Http\Controllers\Auth\VerificationController;
+use App\Http\Controllers\TopicsController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use Mews\Captcha\Captcha;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +18,7 @@ use Mews\Captcha\Captcha;
 */
 
 // 首页
-Route::get('/', 'PagesController@root')->name('root');
+Route::get('/', [TopicsController::class, 'index'])->name('root');
 
 // 邮箱验证相关路由
 Auth::routes(['verify' => true]);
