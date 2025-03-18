@@ -9,13 +9,16 @@ use App\Models\User;
 
 class UserObserver
 {
-    public function creating(User $user)
+    /**
+     * 监听用户创建事件
+     *
+     * @param User $user
+     */
+    public function saving(User $user): void
     {
-        //
-    }
-
-    public function updating(User $user)
-    {
-        //
+        // 为用户生成默认头像, 只有在用户没有设置头像的情况下
+        if (empty($user->avatar)) {
+            $user->avatar = env('APP_URL') . '/uploads/images/default-avatars/default-avatar.png';
+        }
     }
 }
